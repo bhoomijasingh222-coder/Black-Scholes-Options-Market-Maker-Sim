@@ -7,7 +7,7 @@ A reproducible research project that prices European options with Black-Scholes,
 - Black-Scholes call and put pricing, plus delta, gamma, vega, theta, and rho.
 - Dynamic spreads that widen with volatility and adverse-selection risk.
 - Inventory skew: long inventory lowers both quotes; short inventory raises them.
-- Hard inventory limits and continuous delta hedging in the underlying.
+- Hard inventory limits and discrete delta hedging in the underlying at each simulation step.
 - Explicit option fees and proportional stock-hedging costs.
 - Mark-to-market P&L, maximum drawdown, inventory exposure, trade count, and a clearly labelled Sharpe-like diagnostic.
 - Reproducible seeded Monte Carlo experiments across three regimes. Customer
@@ -37,6 +37,20 @@ options-mm --runs 50 --output outputs
 
 The output folder contains representative step-level CSV files, all run summaries, an aggregated regime comparison, and a P&L/inventory chart.
 
+## Results
+
+Results from 150 seeded Monte Carlo simulations, comprising 50 runs per synthetic market regime:
+
+| Regime | Mean P&L | P&L standard deviation | Mean maximum drawdown | Mean trades |
+|---|---:|---:|---:|---:|
+| Calm | $2,489.80 | $518.64 | $16.98 | 139.88 |
+| Volatile | $3,678.99 | $1,181.42 | $20.05 | 72.38 |
+| Adverse selection | $4,859.56 | $1,390.93 | $18.79 | 92.14 |
+
+![Representative P&L and inventory paths](outputs/performance.png)
+
+The table reports averages across seeded simulations, while the chart shows one representative run from each regime. These synthetic results illustrate model behaviour under the chosen assumptions and do not represent historical or expected real-market returns.
+ 
 ## Model flow
 
 1. Simulate the underlying stock using geometric Brownian motion.
